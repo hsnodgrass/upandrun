@@ -4,7 +4,7 @@ A very simple vagrant environment for getting up and running with Puppet Enterpr
 
 This repo provides you with a complete, yet simple environment that consists of a master (CentOS7), as well as a Linux (CentOS7) and Windows VM.
 
-Shout out to Grace Andrews for putting this together! I have updated this fork to use Puppet Enterprise 2017.3.5.
+Shout out to Grace Andrews for putting this together and Jamie Mickelson for showing it to me! I have updated this fork to include a wrapper shell script that allows you to set the PE version at start up.
 
 ## Pre-Steps ##
 
@@ -15,19 +15,26 @@ For downloads : https://puppet.com/download-puppet-enterprise/thank-you
 Once both are installed, you'll be able to do the following steps from your CLI:
 
 ```
-'git clone https://github.com/jmick44/upandrun'
+'git clone https://github.com/hsnodgrass/upandrun'
 
 'cd upandrun'
 
-**vagrant up each vm separately, wait for the previous vm to load fully before bringing up the next one** 
+**`start.sh` will use either a command line arg (first preference) or the envar `UAR_PE_VER` to determine which PE version should be downloaded. The default version is `2018.1.3`.**
 
-'vagrant up /master/'
+./start.sh 2019.2.0
 
-'vagrant up /linux/'
+**OR**
 
-'vagrant up /windows/'
+export UAR_PE_VER='2019.2.0'
+./start.sh
 
-'vagrant hosts list'
+**OR to use default version**
+
+./start.sh
+
+**To verify that the vagrant boxes are up**
+
+vagrant status
 
 **ssh into each box individually**
 
@@ -38,4 +45,4 @@ to ssh into the windows box, you'll need remote desktop
 
 In order to get into your boxes, you can either ssh in from your command line, or you can use the VirtualBox interface. You can read more on Vagrant commands in their [docs](https://www.vagrantup.com/docs/cli/). 
 
-You can also see your console in the browser by going to 'https://192.168.50.4'. This should give you a view of the GUI for continued management of your nodes.
+You can also see your console in the browser by going to 'https://192.168.50.4'. This should give you a view of the GUI for continued management of your nodes. The default user name is `admin` and the default password is `puppetlabs`.
